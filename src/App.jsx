@@ -12,8 +12,9 @@ import Error from "./pages/Error";
 // import Register from "./pages/Auth/components/Register";
 
 import About from "./pages/About";
-// import Contact from "./pages/Contact";
-// import Terms from "./pages/Terms";
+import Contact from "./pages/Contact";
+import Terms from "./pages/Terms";
+import Faq from "./pages/FAQs";
 // import Packages from "./pages/Packages";
 // import Orders from "./pages/MyAccount/components/Orders";
 // import MyPackages from "./pages/MyAccount/components/MyPackages";
@@ -25,7 +26,6 @@ import About from "./pages/About";
 // import VSLPackageDetails from "./pages/VSLPackageDetails";
 // import Payment from "./pages/Payment";
 // import ForgotPassword from "./pages/Auth/components/ForgotPassword";
-// import Faq from "./pages/Faq";
 // import Store from "./pages/Store";
 // import VerifyAccount from "./pages/Auth/components/Verify";
 // import Cart from "./pages/Cart";
@@ -147,22 +147,22 @@ function App() {
         //       },
         //     ],
         //   },
-        //   {
-        //     path: "/faq",
-        //     element: <Faq />,
-        //   },
+          {
+            path: "/faq",
+            element: <Faq />,
+          },
         {
           path: "/about-us",
           element: <About />,
         },
-        //   {
-        //     path: "/contact-us",
-        //     element: <Contact />,
-        //   },
-        //   {
-        //     path: "/terms",
-        //     element: <Terms />,
-        //   },
+        {
+          path: "/contact-us",
+          element: <Contact />,
+        },
+          {
+            path: "/terms",
+            element: <Terms />,
+          },
       ],
       errorElement: <Error />,
     },
