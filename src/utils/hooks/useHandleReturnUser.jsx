@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { jwtDecode } from "jwt-decode";
-import { api, updateToken } from "./index";
+import { api, updateToken } from "../index";
 
 const useHandleReturnUser = () => {
   const [loggedUser, setLoggedUser] = useState({

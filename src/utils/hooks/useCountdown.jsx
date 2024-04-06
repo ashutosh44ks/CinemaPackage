@@ -1,16 +1,9 @@
 import { useState, useEffect } from "react";
-import dateFormatter from "./dateFormatter";
 
-export const useCountdown = (endDate) => {
+const useCountdown = (endDate) => {
   const [timeStamp, setTimeStamp] = useState(0);
   useEffect(() => {
     if (endDate) {
-    //   console.log(
-    //     "end",
-    //     new Date(endDate),
-    //     dateFormatter(endDate)
-    //   );
-    //   console.log("curr", new Date(), dateFormatter(new Date()));
       const diffTimeStamp = +new Date(endDate) - +new Date();
       setTimeStamp(diffTimeStamp);
     }
@@ -32,7 +25,7 @@ export const useCountdown = (endDate) => {
     return { diffDay, diffHour, diffMin, diffSec };
   };
   useEffect(() => {
-    if(!timeStamp) return;
+    if (!timeStamp) return;
     const timer = setInterval(() => {
       setDiffTimeData(getTimer(timeStamp - 1000));
       setTimeStamp(timeStamp - 1000);
@@ -40,5 +33,7 @@ export const useCountdown = (endDate) => {
     return () => clearInterval(timer);
   }, [timeStamp]);
 
-  return { diffTimeData };
+  return diffTimeData;
 };
+
+export default useCountdown;

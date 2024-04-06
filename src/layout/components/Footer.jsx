@@ -1,28 +1,9 @@
 import { useNavigate } from "react-router-dom";
-import { paddingX as layoutPadding } from "./layoutClasses";
+import { footerRoutes, layoutPadding } from "../constants";
 import { FaFacebookF, FaTwitter, FaInstagram, FaYoutube } from "react-icons/fa";
 
 const Footer = () => {
   const navigate = useNavigate();
-
-  const routes = [
-    {
-      name: "About Us",
-      link: "/about-us",
-    },
-    {
-      name: "Contact Us",
-      link: "/contact-us",
-    },
-    {
-      name: "FAQs",
-      link: "/faq",
-    },
-    {
-      name: "Terms & Conditions",
-      link: "/terms",
-    },
-  ];
   const socials = [
     <FaFacebookF key="fb" />,
     <FaTwitter key="x" />,
@@ -44,7 +25,7 @@ const Footer = () => {
           onClick={() => navigate("/")}
         />
         <ul className="xs:flex">
-          {routes.map((route) => (
+          {footerRoutes.map((route) => (
             <li
               key={route.name}
               className="py-2 px-2 min-[480px]:px-3 min-[950px]:px-4 cursor-pointer ease-in-out duration-200 text-center hover:text-yellow"

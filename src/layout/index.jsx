@@ -1,5 +1,5 @@
 import { Outlet } from "react-router-dom";
-import { paddingX as layoutPadding } from "./components/layoutClasses";
+import { layoutPadding } from "./constants";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 

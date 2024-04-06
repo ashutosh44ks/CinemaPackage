@@ -1,4 +1,3 @@
-import React from "react";
 import "./table.css";
 
 const Table = ({ tHead = [], wrapperClass = "", children }) => {

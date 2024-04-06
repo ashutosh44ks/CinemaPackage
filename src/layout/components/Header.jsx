@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useLocation, Link } from "react-router-dom";
-import { useUserContext } from "../../utils/useUserContext";
-import { paddingX as layoutPadding } from "./layoutClasses";
+import { useUserContext } from "../../utils";
 import Breadcrumbs from "../../common/Breadcrumbs";
 import Button from "../../common/Button";
+import { publicHeaderRoutes, protectedHeaderRoutes, layoutPadding } from "../constants";
 import Sidebar from "./Sidebar";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { FaRegUserCircle } from "react-icons/fa";
@@ -12,8 +12,8 @@ import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { TbShoppingCartDollar } from "react-icons/tb";
 import { PiWallet } from "react-icons/pi";
 
-const Menu = ({ route, activeRoute }) => {
-  return (
+const Menu = ({ routeList, activeRoute }) => {
+  return routeList.map((route) => (
     <Link
       className={
         activeRoute === route.link
@@ -21,10 +21,11 @@ const Menu = ({ route, activeRoute }) => {
           : ""
       }
       to={route.link}
+      key={route.link}
     >
       {route.name}
     </Link>
-  );
+  ));
 };
 
 const Header = () => {
@@ -45,35 +46,6 @@ const Header = () => {
     });
     navigate("/auth/login");
   };
-
-  const publicRoutes = [
-    {
-      name: "Home",
-      link: "/",
-    },
-    {
-      name: "Contact Us",
-      link: "/contact-us",
-    },
-    {
-      name: "FAQs",
-      link: "/faq",
-    },
-  ];
-  const protectedRoutes = [
-    {
-      name: "Home",
-      link: "/",
-    },
-    {
-      name: "My Crates",
-      link: "/my-account/my-crates",
-    },
-    {
-      name: "Store",
-      link: "/store",
-    },
-  ];
 
   const [showSidebar, setShowSidebar] = useState(false);
   useEffect(() => {
@@ -107,21 +79,10 @@ const Header = () => {
           }}
         />
         <div className="hidden min-[900px]:flex items-center gap-6 min-[900px]:gap-4 min-[950px]:gap-6">
-          {loggedUser._id === ""
-            ? publicRoutes.map((route) => (
-                <Menu
-                  route={route}
-                  activeRoute={activeRoute}
-                  key={route.link}
-                />
-              ))
-            : protectedRoutes.map((route) => (
-                <Menu
-                  route={route}
-                  activeRoute={activeRoute}
-                  key={route.link}
-                />
-              ))}
+          <Menu
+            routeList={loggedUser._id === "" ? publicHeaderRoutes : protectedHeaderRoutes}
+            activeRoute={activeRoute}
+          />
         </div>
         <div className="hidden sm:block">
           <div className="flex items-center gap-6 min-[900px]:gap-4 min-[950px]:gap-6">

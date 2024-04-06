@@ -1,5 +1,3 @@
-import React from "react";
-
 const SkeletonLines = ({ height, lines = 1, gap }) => {
   return (
     <div
