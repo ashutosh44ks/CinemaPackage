@@ -18,7 +18,7 @@ const Breadcrumbs = () => {
           <ul className="flex gap-2 text-sm" key={path}>
             <li
               className={`capitalize ${
-                index + 1 !== pathnames.length ? "cursor-pointer" : "text-yellow"
+                index + 1 !== pathnames.length ? "cursor-pointer" : "text-primary"
               }`}
               onClick={() => {
                 if (index + 1 !== pathnames.length) {

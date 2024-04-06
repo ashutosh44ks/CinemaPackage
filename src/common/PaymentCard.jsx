@@ -77,7 +77,7 @@ const PaymentCard = ({ isLoading, submitFn }) => {
           Please complete your address details before proceeding to payment
         </h5>
         <Link to="/my-account/account-details">
-          <Button theme="yellow" className="mt-4 w-full">
+          <Button theme="primary" className="mt-4 w-full">
             Open Edit Profile
           </Button>
         </Link>
@@ -153,7 +153,7 @@ const PaymentCard = ({ isLoading, submitFn }) => {
         </div>
       </div>
       <Button
-        theme="yellow"
+        theme="primary"
         className="w-full font-medium mt-4 flex justify-center"
         id="submit"
         disabled={isLoading}
@@ -167,7 +167,7 @@ const PaymentCard = ({ isLoading, submitFn }) => {
           )}
         </span>
       </Button>
-      {message && <p className="text-lightgrey2 mt-2">{message}</p>}
+      {message && <p className="text-grey mt-2">{message}</p>}
     </form>
   );
 };

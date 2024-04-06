@@ -23,8 +23,8 @@
   color: var(--white);
 }
 .pagination .pagination-num.active {
-  background-color: var(--yellow);
-  color: var(--darkblack);
+  background-color: var(--primary);
+  color: var(--dark2);
 }
 .pagination .pagination-btn {
   color: var(--white);

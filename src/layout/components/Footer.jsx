@@ -19,7 +19,7 @@ const Footer = () => {
     >
       <div className="flex justify-between items-center gap-x-8 w-full flex-col md:flex-row md:mb-4">
         <img
-          src="/assets/nLogo.png"
+          src="/vite.svg"
           alt="logo"
           className="h-20 cursor-pointer"
           onClick={() => navigate("/")}
@@ -28,7 +28,7 @@ const Footer = () => {
           {footerRoutes.map((route) => (
             <li
               key={route.name}
-              className="py-2 px-2 min-[480px]:px-3 min-[950px]:px-4 cursor-pointer ease-in-out duration-200 text-center hover:text-yellow"
+              className="py-2 px-2 min-[480px]:px-3 min-[950px]:px-4 cursor-pointer ease-in-out duration-200 text-center hover:text-primary"
               onClick={() => navigate(route.link)}
             >
               {route.name}
@@ -45,7 +45,7 @@ const Footer = () => {
           {socials.map((social, index) => (
             <li
               key={index}
-              className="py-2 px-4 cursor-pointer ease-in-out duration-200 text-center hover:text-yellow"
+              className="py-2 px-4 cursor-pointer ease-in-out duration-200 text-center hover:text-primary"
             >
               {social}
             </li>

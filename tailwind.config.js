@@ -6,19 +6,13 @@ export default {
   theme: {
     extend: {
       colors: {
-        darkblack: "#0C0C0C",
-        darkblack2: "#0f0f0f",
-        dark: "#1A1A1A",
-        dark2: "#121212",
-        black: "#333",
-        white: "#FAFAFA",
-        pink: "#e91e63",
-        pink2: "#ff0057",
+        primary: "#FD7014",
+        primary2: "#FF5E62",
+        dark: "#393E46",
+        dark2: "#222831",
+        white: "#fafafa",
         lightgrey: "#ebebeb",
-        lightgrey2: "#c4c4c4",
-        lightgrey3: "#D4D4D4",
-        yellow: "#FDEE30",
-        yellow2: "#FFD700",
+        grey: "#c4c4c4",
       },
       screens: {
         "2xs": "375px",

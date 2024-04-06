@@ -13,10 +13,10 @@ const Error = () => {
             {err.status}: {err.statusText}
           </h3>
         )}
-        <p className="text-center text-lightgrey2 my-2">({err.data})</p>
+        <p className="text-center text-grey my-2">({err.data})</p>
       </div>
       <Link to="/">
-        <Button theme="yellow" rounded="md" >
+        <Button theme="primary" rounded="md" >
           Go to Home
         </Button>
       </Link>

@@ -25,7 +25,7 @@ const Modal = forwardRef(({ content, title, closeDialog = () => {} }, ref) => {
   }, []);
   return (
     <dialog ref={ref}>
-      <div className="flex justify-between items-center px-4 py-2 bg-yellow text-darkblack">
+      <div className="flex justify-between items-center px-4 py-2 bg-primary text-dark2">
         <span></span>
         <h4>{title}</h4>
         <span

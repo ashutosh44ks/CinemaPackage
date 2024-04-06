@@ -21,7 +21,7 @@ const Menu = ({ routeList, activeRoute }) => {
     <Link
       className={
         activeRoute === route.link
-          ? "after:content-none after:block after:w-4 after:absolute after:h-[0.1rem] after:bg-yellow"
+          ? "after:content-[''] after:block after:w-4 after:absolute after:h-[0.1rem] after:bg-primary"
           : ""
       }
       to={route.link}
@@ -75,7 +75,7 @@ const Header = () => {
         )}`}
       >
         <img
-          src="/assets/logo.png"
+          src="/vite.svg"
           alt="logo"
           className="h-[4.5rem] cursor-pointer"
           onClick={() => {
@@ -104,7 +104,7 @@ const Header = () => {
                   Login
                 </Button>
                 <Button
-                  theme="yellow"
+                  theme="primary"
                   onClick={() => {
                     navigate("/auth/register");
                   }}
@@ -142,21 +142,21 @@ const Header = () => {
                     {loggedUser.name}
                     <MdKeyboardArrowDown className="text-xl" />
                   </div>
-                  <ul className="group-hover:block hidden absolute z-10 right-6 min-[950px]:right-14 xl:right-[5.5rem] 2xl:right-[7.5rem] top-20 w-36 bg-darkblack border-dark border-r-4 border-t-0">
+                  <ul className="group-hover:block hidden absolute z-10 right-6 min-[950px]:right-14 xl:right-[5.5rem] 2xl:right-[7.5rem] top-20 w-36 bg-dark2 border-dark border-r-4 border-t-0">
                     <li
-                      className="cursor-pointer px-4 py-2 hover:bg-yellow hover:text-darkblack font-medium"
+                      className="cursor-pointer px-4 py-2 hover:bg-primary hover:text-dark2 font-medium"
                       onClick={() => navigate("/my-account/account-details")}
                     >
                       My Profile
                     </li>
                     <li
-                      className="cursor-pointer px-4 py-2 hover:bg-yellow hover:text-darkblack font-medium"
+                      className="cursor-pointer px-4 py-2 hover:bg-primary hover:text-dark2 font-medium"
                       onClick={() => navigate("/store")}
                     >
                       Store
                     </li>
                     <li
-                      className="cursor-pointer px-4 py-2 hover:bg-yellow hover:text-darkblack font-medium rounded-bl-sm rounded-br-sm"
+                      className="cursor-pointer px-4 py-2 hover:bg-primary hover:text-dark2 font-medium rounded-bl-sm rounded-br-sm"
                       onClick={logout}
                     >
                       Logout

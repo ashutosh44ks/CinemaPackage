@@ -2,13 +2,13 @@
   text-align: center;
   transition: 0.3s all ease-in-out;
 }
-.btn.btn-yellow {
-  background-color: var(--yellow);
-  color: var(--darkblack);
+.btn.btn-primary {
+  background-color: var(--primary);
+  color: var(--dark2);
   font-weight: 600;
 }
-.btn.btn-yellow:hover {
-  background-color: var(--yellow2);
+.btn.btn-primary:hover {
+  background-color: var(--primary2);
 }
 .btn.btn-dark {
   background-color: var(--dark);
@@ -16,7 +16,7 @@
   border: solid 1px var(--black);
 }
 .btn.btn-dark:hover {
-  border-color: var(--yellow);
+  border-color: var(--primary);
 }
 .btn.btn-dark-noborder {
   background-color: var(--dark);
@@ -56,10 +56,10 @@
 }
 .btn.btn-google-white {
   background-color: var(--white);
-  color: var(--darkblack);
+  color: var(--dark2);
 }
 .btn.btn-google-white:hover {
-  background-color: var(--lightgrey2);
+  background-color: var(--grey);
 }
 .btn.btn-facebook-blue {
   background-color: #1877F2;
@@ -69,7 +69,7 @@
   background-color: #1e5a9d;
 }
 .btn.btn-apple-black {
-  background-color: var(--darkblack2);
+  background-color: var(--dark22);
   color: var(--white);
   border: solid 1px var(--black);
 }
