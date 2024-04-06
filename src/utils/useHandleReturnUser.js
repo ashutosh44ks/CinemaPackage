@@ -13,8 +13,8 @@ const useHandleReturnUser = () => {
   });
   const [loading, setLoading] = useState(true);
   const handleReturningUser = async () => {
-    if (localStorage.getItem("jordanToken")) {
-      const decodedToken = jwtDecode(localStorage.getItem("jordanToken"));
+    if (localStorage.getItem("cinemaToken")) {
+      const decodedToken = jwtDecode(localStorage.getItem("cinemaToken"));
       if (decodedToken.exp * 1000 < Date.now()) {
         const userId = await updateToken();
         setLoggedUser({ ...loggedUser, _id: userId });

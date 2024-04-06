@@ -1,4 +1,3 @@
-import React from "react";
 import { useNavigate } from "react-router-dom";
 
 const Sidebar = ({ showSidebar, activeRoute, loggedUser, logout }) => {
@@ -35,9 +34,9 @@ const Sidebar = ({ showSidebar, activeRoute, loggedUser, logout }) => {
       show: loggedUser._id === "",
     },
     {
-      name: "My Packages",
-      link: "/my-packages",
-      func: () => navigate("/my-account/my-packages"),
+      name: "My Crates",
+      link: "/my-crates",
+      func: () => navigate("/my-account/my-crates"),
       show: loggedUser._id !== "",
     },
     {
@@ -60,7 +59,7 @@ const Sidebar = ({ showSidebar, activeRoute, loggedUser, logout }) => {
     },
   ];
   return (
-    <aside className={`routes-sidebar ${showSidebar ? "show" : ""}`}>
+    <aside className={`fixed w-full bg-darkblack overflow-hidden ease-in-out duration-500 z-50 h-0 flex flex-col justify-start items-center ${showSidebar ? "h-[calc(100vh - 3rem)] after:content-none after:block after:w-4 after:absolute after:h-[0.1rem] after:bg-yellow after:left-1/2 after:-translate-1/2 pt-8 sm:pt-0" : ""}`}>
       {data.map((route, index) => (
         <div
           key={index}

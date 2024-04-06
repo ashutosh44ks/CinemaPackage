@@ -2,7 +2,7 @@ import axios from "axios";
 import { jwtDecode } from "jwt-decode";
 
 const updateToken = async () => {
-  const refreshToken = localStorage.getItem("jordanTokenRefresh");
+  const refreshToken = localStorage.getItem("cinemaRefreshToken");
   try {
     const { data } = await axios.post(
       `${process.env.REACT_APP_BASE_API_URL}user/refreshToken`,
@@ -10,14 +10,14 @@ const updateToken = async () => {
         refreshToken,
       }
     );
-    localStorage.setItem("jordanToken", data.dta);
+    localStorage.setItem("cinemaToken", data.dta);
     const decodedToken = jwtDecode(data.dta);
     console.log("token updated");
     return decodedToken.id;
   } catch (e) {
     console.log(e);
-    localStorage.removeItem("jordanToken");
-    localStorage.removeItem("jordanTokenRefresh");
+    localStorage.removeItem("cinemaToken");
+    localStorage.removeItem("cinemaRefreshToken");
     return null;
   }
 };

@@ -14,11 +14,11 @@ const ProtectedRoute = () => {
       // if User is not logged in
       // Check if user has a token and refresh token
       if (
-        localStorage.getItem("jordanToken") &&
-        localStorage.getItem("jordanTokenRefresh")
+        localStorage.getItem("cinemaToken") &&
+        localStorage.getItem("cinemaRefreshToken")
       ) {
         // if user has a token and refresh token, check if token is expired
-        const decodedToken = jwtDecode(localStorage.getItem("jordanToken"));
+        const decodedToken = jwtDecode(localStorage.getItem("cinemaToken"));
         if (decodedToken.exp * 1000 < Date.now()) {
           // if token is expired, update token
           updateToken();

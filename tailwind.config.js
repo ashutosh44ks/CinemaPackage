@@ -22,8 +22,8 @@ export default {
         yellow2: "#FFD700",
       },
       screens: {
-        "2xs": "380px",
-        xs: "420px",
+        "2xs": "375px",
+        xs: "430px",
         sm: "640px",
         md: "768px",
         lg: "1024px",

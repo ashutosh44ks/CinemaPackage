@@ -4,7 +4,7 @@ import { useHandleReturnUser } from "./utils";
 import PassContext from "./utils/PassContext";
 
 // import ProtectedRoute from "./components/utils/ProtectedRoute";
-import Layout from "./components/layout";
+import Layout from "./layout";
 import Error from "./pages/Error";
 
 // import Auth from "./pages/Auth";

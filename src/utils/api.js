@@ -13,13 +13,13 @@ const api = axios.create({
 api.interceptors.request.use(
   async function (config) {
     // Do something before request is sent
-    if (!localStorage.getItem("jordanToken")) return config;
-    const { exp } = jwtDecode(localStorage.getItem("jordanToken"));
+    if (!localStorage.getItem("cinemaToken")) return config;
+    const { exp } = jwtDecode(localStorage.getItem("cinemaToken"));
     if (Date.now() >= exp * 1000) {
       await updateToken();
     }
     Object.assign(config.headers, {
-      Authorization: "Bearer " + localStorage.getItem("jordanToken"),
+      Authorization: "Bearer " + localStorage.getItem("cinemaToken"),
     });
     return config;
   },
