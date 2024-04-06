@@ -3,7 +3,11 @@ import { useNavigate, useLocation, Link } from "react-router-dom";
 import { useUserContext } from "../../utils";
 import Breadcrumbs from "../../common/Breadcrumbs";
 import Button from "../../common/Button";
-import { publicHeaderRoutes, protectedHeaderRoutes, layoutPadding } from "../constants";
+import {
+  publicHeaderRoutes,
+  protectedHeaderRoutes,
+  layoutPadding,
+} from "../constants";
 import Sidebar from "./Sidebar";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { FaRegUserCircle } from "react-icons/fa";
@@ -68,7 +72,7 @@ const Header = () => {
       <header
         className={`flex justify-between items-center gap-6 min-[480px]:gap-4 ${layoutPadding(
           "py-4"
-        )} bg-darkblack text-white`}
+        )}`}
       >
         <img
           src="/assets/logo.png"
@@ -80,7 +84,9 @@ const Header = () => {
         />
         <div className="hidden min-[900px]:flex items-center gap-6 min-[900px]:gap-4 min-[950px]:gap-6">
           <Menu
-            routeList={loggedUser._id === "" ? publicHeaderRoutes : protectedHeaderRoutes}
+            routeList={
+              loggedUser._id === "" ? publicHeaderRoutes : protectedHeaderRoutes
+            }
             activeRoute={activeRoute}
           />
         </div>

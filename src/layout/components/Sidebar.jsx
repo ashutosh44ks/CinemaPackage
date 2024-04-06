@@ -59,12 +59,18 @@ const Sidebar = ({ showSidebar, activeRoute, loggedUser, logout }) => {
     },
   ];
   return (
-    <aside className={`fixed w-full bg-darkblack overflow-hidden ease-in-out duration-500 z-50 h-0 flex flex-col justify-start items-center ${showSidebar ? "h-[calc(100vh - 3rem)] after:content-none after:block after:w-4 after:absolute after:h-[0.1rem] after:bg-yellow after:left-1/2 after:-translate-1/2 pt-8 sm:pt-0" : ""}`}>
+    <aside
+      className={`fixed w-full bg-darkblack overflow-hidden z-50 flex flex-col justify-start items-center ease-in-out duration-500 ${
+        showSidebar ? "h-[calc(100vh-3rem)] pt-8 sm:pt-0" : "h-0"
+      }`}
+    >
       {data.map((route, index) => (
         <div
           key={index}
           className={`${route.show ? "block" : "hidden"} ${
-            activeRoute === route.link ? "active" : "cursor-pointer"
+            activeRoute === route.link
+              ? "after:content-[''] after:block after:w-4 after:absolute after:h-[0.1rem] after:bg-yellow after:left-1/2 after:-translate-1/2"
+              : "cursor-pointer"
           } text-center py-4 text-xl`}
           onClick={route.func}
         >

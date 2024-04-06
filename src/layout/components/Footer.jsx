@@ -15,7 +15,7 @@ const Footer = () => {
     <footer
       className={`flex flex-col justify-center items-center ${layoutPadding(
         "py-4"
-      )} text-lightgrey3 bg-darkblack2`}
+      )}`}
     >
       <div className="flex justify-between items-center gap-x-8 w-full flex-col md:flex-row md:mb-4">
         <img
@@ -37,7 +37,10 @@ const Footer = () => {
         </ul>
       </div>
       <div className="flex justify-between items-center gap-x-8 gap-y-2 w-full flex-col-reverse md:flex-row">
-        <p className="text-sm">Copyright CinemaCrate. All Rights Reserved.</p>
+        <p className="text-sm">
+          Copyright © {new Date().getFullYear()} CinemaCrate. All Rights
+          Reserved.
+        </p>
         <ul className="flex items-center">
           {socials.map((social, index) => (
             <li
