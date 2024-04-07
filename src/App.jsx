@@ -7,14 +7,15 @@ import PassContext from "./utils/PassContext";
 import Layout from "./layout";
 import Error from "./pages/Error";
 
-// import Auth from "./pages/Auth";
-// import Login from "./pages/Auth/components/Login";
-// import Register from "./pages/Auth/components/Register";
-
 import About from "./pages/About";
 import Contact from "./pages/Contact";
 import Terms from "./pages/Terms";
 import Faq from "./pages/FAQs";
+
+import Auth from "./pages/Auth";
+import Login from "./pages/Auth/Login";
+import Register from "./pages/Auth/Register";
+
 // import Packages from "./pages/Packages";
 // import Orders from "./pages/MyAccount/components/Orders";
 // import MyPackages from "./pages/MyAccount/components/MyPackages";
@@ -41,28 +42,28 @@ function App() {
       path: "/",
       element: <Layout />,
       children: [
-        //   {
-        //     path: "/auth",
-        //     element: <Auth />,
-        //     children: [
-        //       {
-        //         path: "/auth/login",
-        //         element: <Login />,
-        //       },
-        //       {
-        //         path: "/auth/register",
-        //         element: <Register />,
-        //       },
-        //       {
-        //         path: "/auth/forgot-password",
-        //         element: <ForgotPassword />,
-        //       },
-        //       {
-        //         path: "/auth/verify-account",
-        //         element: <VerifyAccount />,
-        //       },
-        //     ],
-        //   },
+        {
+          path: "/auth",
+          element: <Auth />,
+          children: [
+            {
+              path: "/auth/login",
+              element: <Login />,
+            },
+            {
+              path: "/auth/register",
+              element: <Register />,
+            },
+            //       {
+            //         path: "/auth/forgot-password",
+            //         element: <ForgotPassword />,
+            //       },
+            //       {
+            //         path: "/auth/verify-account",
+            //         element: <VerifyAccount />,
+            //       },
+          ],
+        },
         //   {
         //     path: "/",
         //     element: <Packages />,
@@ -147,10 +148,10 @@ function App() {
         //       },
         //     ],
         //   },
-          {
-            path: "/faq",
-            element: <Faq />,
-          },
+        {
+          path: "/faq",
+          element: <Faq />,
+        },
         {
           path: "/about-us",
           element: <About />,
@@ -159,10 +160,10 @@ function App() {
           path: "/contact-us",
           element: <Contact />,
         },
-          {
-            path: "/terms",
-            element: <Terms />,
-          },
+        {
+          path: "/terms",
+          element: <Terms />,
+        },
       ],
       errorElement: <Error />,
     },

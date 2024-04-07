@@ -62,17 +62,16 @@
   background-color: var(--grey);
 }
 .btn.btn-facebook-blue {
-  background-color: #1877F2;
+  background-color: #1877f2;
   color: var(--white);
 }
 .btn.btn-facebook-blue:hover {
   background-color: #1e5a9d;
 }
 .btn.btn-apple-black {
-  background-color: var(--dark22);
+  background-color: black;
   color: var(--white);
-  border: solid 1px var(--black);
 }
 .btn.btn-apple-black:hover {
-  background-color: var(--black);
+  background-color: #111;
 }
