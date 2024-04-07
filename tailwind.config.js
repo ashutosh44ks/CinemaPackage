@@ -1,13 +1,13 @@
 /** @type {import('tailwindcss').Config} */
-import defaultTheme from 'tailwindcss/defaultTheme';
+import defaultTheme from "tailwindcss/defaultTheme";
 
 export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {
       colors: {
-        primary: "#FD7014",
-        primary2: "#FF5E62",
+        primary: "#ffe049",
+        primary2: "#ffca22",
         dark: "#393E46",
         dark2: "#222831",
         white: "#fafafa",
