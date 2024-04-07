@@ -8,6 +8,7 @@ const Input = ({
   onChange,
   required = false,
   className = "",
+  disabled = false,
 }) => {
   const inputRef = useRef(null);
   const labelRef = useRef(null);
@@ -32,6 +33,7 @@ const Input = ({
         required={required}
         ref={inputRef}
         placeholder="."
+        disabled={disabled}
       />
       <label ref={labelRef}>{label}</label>
     </div>

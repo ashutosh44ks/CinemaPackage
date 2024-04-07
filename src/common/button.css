@@ -22,18 +22,11 @@
   background-color: var(--dark);
   color: var(--white);
 }
-.btn[disabled] {
-  background-color: var(--lightgrey3);
-  color: var(--black);
-  cursor: default;
-}
+.btn[disabled],
 .btn[disabled]:hover {
-  background-color: var(--lightgrey3);
-  color: var(--black);
-}
-.btn.btn-grey {
-  background-color: var(--lightgrey3);
-  color: var(--darkgrey);
+  background-color: var(--dark);
+  color: var(--white);
+  cursor: default;
 }
 .btn.btn-lg {
   padding: 0.75rem 1.5rem;

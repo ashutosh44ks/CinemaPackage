@@ -15,6 +15,8 @@ import Faq from "./pages/FAQs";
 import Auth from "./pages/Auth";
 import Login from "./pages/Auth/Login";
 import Register from "./pages/Auth/Register";
+import VerifyAccount from "./pages/Auth/Verify";
+import ForgotPassword from "./pages/Auth/ForgotPassword";
 
 // import Packages from "./pages/Packages";
 // import Orders from "./pages/MyAccount/components/Orders";
@@ -26,9 +28,7 @@ import Register from "./pages/Auth/Register";
 // import SpecialPackageDetails from "./pages/SpecialPackageDetails";
 // import VSLPackageDetails from "./pages/VSLPackageDetails";
 // import Payment from "./pages/Payment";
-// import ForgotPassword from "./pages/Auth/components/ForgotPassword";
 // import Store from "./pages/Store";
-// import VerifyAccount from "./pages/Auth/components/Verify";
 // import Cart from "./pages/Cart";
 
 function App() {
@@ -54,14 +54,14 @@ function App() {
               path: "/auth/register",
               element: <Register />,
             },
-            //       {
-            //         path: "/auth/forgot-password",
-            //         element: <ForgotPassword />,
-            //       },
-            //       {
-            //         path: "/auth/verify-account",
-            //         element: <VerifyAccount />,
-            //       },
+            {
+              path: "/auth/forgot-password",
+              element: <ForgotPassword />,
+            },
+                  {
+                    path: "/auth/verify-account",
+                    element: <VerifyAccount />,
+                  },
           ],
         },
         //   {
