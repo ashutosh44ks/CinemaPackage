@@ -89,7 +89,7 @@ const Register = () => {
         <Heading level={2} className="text-center mb-2">
           Welcome to CinemaCrate!
         </Heading>
-        <p className="text-center text-lightgrey2">
+        <p className="text-center text-grey">
           Sign Up & Get $25 Bonus Credits to Start Watching
         </p>
       </div>

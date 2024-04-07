@@ -115,7 +115,7 @@ const ForgotPassword = () => {
           <Heading level={2} className="text-center mb-2">
             Reset Password
           </Heading>
-          <p className="text-center text-lightgrey2">
+          <p className="text-center text-grey">
             Enter the OTP sent to your email and your new password
           </p>
         </div>
