@@ -22,7 +22,7 @@ const Login = () => {
   const [rememberMe, setRememberMe] = useState(false);
   const loginUser = async () => {
     try {
-      const { data } = await api.post(`/user/login`, {
+      const { data } = await api.post(`/login`, {
         email,
         password,
       });

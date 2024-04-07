@@ -17,7 +17,7 @@ const VerifyAccount = () => {
   const [otp, setOtp] = useState("");
   const verifyAccount = async () => {
     try {
-      const { data } = await api.post(`/user/verifyAccount`, {
+      const { data } = await api.post(`/verifyAccount`, {
         email: emailInput,
         otp: +otp,
       });
@@ -41,7 +41,7 @@ const VerifyAccount = () => {
   const initiateVerify = async () => {
     setLoading(true);
     try {
-      const { data } = await api.post(`/user/generateOTP`, {
+      const { data } = await api.post(`/generateOTP`, {
         email: emailInput,
       });
       console.log(data);

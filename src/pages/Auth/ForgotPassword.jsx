@@ -12,7 +12,7 @@ const ForgotPassword = () => {
   const [otp, setOtp] = useState("");
   const resetPassword = async () => {
     try {
-      const { data } = await api.post(`/user/resetPass`, {
+      const { data } = await api.post(`/resetPass`, {
         email,
         otp: +otp,
         password,
@@ -33,7 +33,7 @@ const ForgotPassword = () => {
   const initiateResetPass = async () => {
     setLoading(true);
     try {
-      const { data } = await api.post(`/user/resetPassOTP`, {
+      const { data } = await api.post(`/resetPassOTP`, {
         email,
       });
       console.log(data);

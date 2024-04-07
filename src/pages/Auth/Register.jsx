@@ -59,7 +59,7 @@ const Register = () => {
   const registerUser = async () => {
     setLoading(true);
     try {
-      const { data } = await api.post(`/user/signup`, {
+      const { data } = await api.post(`/signup`, {
         name,
         email,
         mobile: phone,

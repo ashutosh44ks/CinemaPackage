@@ -31,7 +31,7 @@ const useHandleReturnUser = () => {
 
   const getProfileShort = async () => {
     try {
-      const { data } = await api.get("/user/getProfileShort");
+      const { data } = await api.get("/getProfileShort");
       console.log(data);
       setLoggedUser({
         _id: data.dta._id,

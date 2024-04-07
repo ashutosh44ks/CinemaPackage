@@ -16,7 +16,7 @@ const Contact = () => {
 
   const sendMsg = async () => {
     try {
-      const { data } = await api.post("/user/contact", {
+      const { data } = await api.post("/contact", {
         fName,
         lName,
         email,
@@ -36,7 +36,7 @@ const Contact = () => {
   };
   const getProfile = async () => {
     try {
-      const { data } = await api.get("/user/getProfile");
+      const { data } = await api.get("/getProfile");
       console.log(data);
       if (data?.result?.user?._id) {
         setFName(data.result.user.name.split(" ")[0]);
