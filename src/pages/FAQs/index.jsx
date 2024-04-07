@@ -60,7 +60,9 @@ const Faq = () => {
                   else setActive(index);
                 }}
               >
-                <Heading level={4} fontWeight="medium" className="py-1">{item.title}</Heading>
+                <Heading level={4} className="py-1">
+                  {item.title}
+                </Heading>
                 <span className="text-2xl">
                   {active === index ? (
                     <AiOutlineMinusCircle className="text-primary" />

@@ -57,7 +57,7 @@ const Contact = () => {
     <div className="flex flex-col justify-center items-center">
       <div>
         <p className="text-center text-primary">Contact Us</p>
-        <Heading level={2} fontWeight="medium" className="text-center my-4">
+        <Heading level={2} className="text-center my-4">
           Get in Touch
         </Heading>
         <p className="text-center text-grey">

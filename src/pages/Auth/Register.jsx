@@ -93,7 +93,7 @@ const Register = () => {
       className="max-w-[26rem]"
     >
       <div className="mb-12">
-        <Heading level={2} fontWeight="medium" className="text-center mb-2">
+        <Heading level={2} className="text-center mb-2">
           Welcome to CinemaCrate!
         </Heading>
         <p className="text-center text-lightgrey2">

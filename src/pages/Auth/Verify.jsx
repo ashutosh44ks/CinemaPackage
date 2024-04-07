@@ -67,7 +67,7 @@ const VerifyAccount = () => {
         className="max-w-[26rem]"
       >
         <div className="mb-6">
-          <Heading level={2} fontWeight="medium" className="text-center mb-2">
+          <Heading level={2} className="text-center mb-2">
             Verify Account
           </Heading>
           <p className="text-center text-grey">
@@ -121,7 +121,7 @@ const VerifyAccount = () => {
         className="max-w-[26rem]"
       >
         <div className="mb-6">
-          <Heading level={2} fontWeight="medium" className="text-center mb-2">
+          <Heading level={2} className="text-center mb-2">
             Verify Account
           </Heading>
           <p className="text-center text-grey">

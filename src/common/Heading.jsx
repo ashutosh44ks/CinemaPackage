@@ -1,6 +1,6 @@
 const Heading = ({
   level,
-  fontWeight = "semibold",
+  fontWeight = "medium",
   className,
   id = null,
   children,
@@ -31,7 +31,10 @@ const Heading = ({
     bold: "font-semibold",
   };
   return (
-    <Tag className={`${fontSize()} ${weights[fontWeight]} ${className}`} {...(id && { id })}>
+    <Tag
+      className={`${fontSize()} ${weights[fontWeight]} ${className}`}
+      {...(id && { id })}
+    >
       {children}
     </Tag>
   );
