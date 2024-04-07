@@ -1,13 +1,9 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import { Button, Input, Checkbox, Heading } from "../../common";
+import { Button, Input, InputPassword, Checkbox, Heading } from "../../common";
 import { api, myToast } from "../../utils";
 import SocialLoginBtnGroup from "./components/SocialLoginBtnGroup";
-import {
-  AiOutlineEye,
-  AiOutlineEyeInvisible,
-  AiOutlineLoading3Quarters,
-} from "react-icons/ai";
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { PiSealCheck } from "react-icons/pi";
 
 const RenderReferral = ({ refBy, setRefBy }) => {
@@ -79,9 +75,6 @@ const Register = () => {
     setLoading(false);
   };
 
-  const [showPassword, setShowPassword] = useState(false);
-  const [showCPassword, setShowCPassword] = useState(false);
-
   return (
     <form
       onSubmit={(e) => {
@@ -135,36 +128,22 @@ const Register = () => {
         />
       </div>
       <div className="relative mb-4 w-full">
-        <Input
-          type={showPassword ? "text" : "password"}
+        <InputPassword
           label="Password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           className="w-full min-w-[20rem]"
           required
         />
-        <span
-          className="absolute right-0 top-0 text-xl cursor-pointer p-4"
-          onClick={() => setShowPassword(!showPassword)}
-        >
-          {showPassword ? <AiOutlineEye /> : <AiOutlineEyeInvisible />}
-        </span>
       </div>
       <div className="relative mb-4 w-full">
-        <Input
-          type={showCPassword ? "text" : "password"}
+        <InputPassword
           label="Confirm Password"
           value={cPassword}
           onChange={(e) => setCPassword(e.target.value)}
           className="w-full min-w-[20rem]"
           required
         />
-        <span
-          className="absolute right-0 top-0 text-xl cursor-pointer p-4"
-          onClick={() => setShowCPassword(!showCPassword)}
-        >
-          {showCPassword ? <AiOutlineEye /> : <AiOutlineEyeInvisible />}
-        </span>
       </div>
       <div className="mb-4 w-full">
         <Checkbox

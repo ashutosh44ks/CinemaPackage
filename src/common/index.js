@@ -3,6 +3,7 @@ import Button from "./Button";
 import Checkbox from "./Checkbox";
 import Heading from "./Heading";
 import Input from "./Input";
+import InputPassword from "./InputPassword";
 import Modal from "./Modal";
 import Pagination from "./Pagination";
 import PaymentCard from "./PaymentCard";
@@ -16,6 +17,7 @@ export {
   Checkbox,
   Heading,
   Input,
+  InputPassword,
   Modal,
   Pagination,
   PaymentCard,

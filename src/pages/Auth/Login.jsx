@@ -2,9 +2,8 @@ import { useState, useEffect } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
 import { api, myToast, useUserContext } from "../../utils";
-import { Button, Checkbox, Heading, Input } from "../../common/";
+import { Button, Checkbox, Heading, Input, InputPassword } from "../../common/";
 import SocialLoginBtnGroup from "./components/SocialLoginBtnGroup";
-import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 
 const Login = () => {
   const { loggedUser, setLoggedUser } = useUserContext();
@@ -48,8 +47,6 @@ const Login = () => {
     }
   };
 
-  const [showPassword, setShowPassword] = useState(false);
-
   return (
     <form
       onSubmit={(e) => {
@@ -80,20 +77,13 @@ const Login = () => {
         />
       </div>
       <div className="relative mb-4 w-full">
-        <Input
-          type={showPassword ? "text" : "password"}
+        <InputPassword
           label="Password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          className="w-full min-w-[20rem] pr-14"
+          className="w-full min-w-[20rem]"
           required
         />
-        <span
-          className="absolute right-0 top-0 text-xl cursor-pointer p-4"
-          onClick={() => setShowPassword(!showPassword)}
-        >
-          {showPassword ? <AiOutlineEye /> : <AiOutlineEyeInvisible />}
-        </span>
       </div>
       <div className="w-full flex justify-between mb-4">
         <Checkbox

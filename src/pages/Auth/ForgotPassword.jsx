@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { api, myToast } from "../../utils";
-import { Heading, Button, Input } from "../../common";
+import { Heading, Button, Input, InputPassword } from "../../common";
 import { AiOutlineLoading } from "react-icons/ai";
 
 const ForgotPassword = () => {
@@ -141,8 +141,7 @@ const ForgotPassword = () => {
           />
         </div>
         <div className="mb-4 w-full">
-          <Input
-            type="text"
+          <InputPassword
             label="New Password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
