@@ -5,13 +5,13 @@ const updateToken = async () => {
   const refreshToken = localStorage.getItem("cinemaRefreshToken");
   try {
     const { data } = await axios.post(
-      `${process.env.REACT_APP_BASE_API_URL}user/refreshToken`,
+      `${import.meta.env.VITE_APP_BASE_API_URL}user/refreshToken`,
       {
         refreshToken,
       }
     );
-    localStorage.setItem("cinemaToken", data.dta);
-    const decodedToken = jwtDecode(data.dta);
+    localStorage.setItem("cinemaToken", data.result);
+    const decodedToken = jwtDecode(data.result);
     console.log("token updated");
     return decodedToken.id;
   } catch (e) {
