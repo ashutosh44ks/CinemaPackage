@@ -34,6 +34,7 @@ const Input = ({
         ref={inputRef}
         placeholder="."
         disabled={disabled}
+        autoComplete="new-password"
       />
       <label ref={labelRef}>{label}</label>
     </div>

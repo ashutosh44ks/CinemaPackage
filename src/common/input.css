@@ -77,3 +77,12 @@
   transform: scale(1.25) translateX(0.1rem);
   margin-right: 0.75rem;
 }
+
+/* Change the autofill to any color */
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus, 
+input:-webkit-autofill:active{
+    -webkit-box-shadow: 0 0 0 30px var(--dark2) inset !important;
+    -webkit-text-fill-color: white !important;
+}
