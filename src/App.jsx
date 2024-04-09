@@ -18,7 +18,7 @@ import Register from "./pages/Auth/Register";
 import VerifyAccount from "./pages/Auth/Verify";
 import ForgotPassword from "./pages/Auth/ForgotPassword";
 
-// import Packages from "./pages/Packages";
+import Home from "./pages/Home";
 // import Orders from "./pages/MyAccount/components/Orders";
 // import MyPackages from "./pages/MyAccount/components/MyPackages";
 // import AccountDetails from "./pages/MyAccount/components/AccountDetails";
@@ -58,20 +58,16 @@ function App() {
               path: "/auth/forgot-password",
               element: <ForgotPassword />,
             },
-                  {
-                    path: "/auth/verify-account",
-                    element: <VerifyAccount />,
-                  },
+            {
+              path: "/auth/verify-account",
+              element: <VerifyAccount />,
+            },
           ],
         },
-        //   {
-        //     path: "/",
-        //     element: <Packages />,
-        //   },
-        //   {
-        //     path: "/packages",
-        //     element: <Packages />,
-        //   },
+        {
+          path: "/",
+          element: <Home />,
+        },
         //   {
         //     path: "/payment/:id",
         //     element: <Payment />,
