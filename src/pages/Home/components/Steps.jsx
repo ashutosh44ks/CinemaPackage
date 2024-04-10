@@ -35,7 +35,7 @@ const Steps = () => {
       <div className="flex flex-col md:flex-row gap-6 xl:gap-8 my-8 md:overflow-auto">
         {data.map((item) => (
           <div
-            className="bg-dark px-6 py-8 rounded-lg xs:min-w-[23rem] w-full md:w-1/2"
+            className="bg-dark px-6 py-8 rounded-2xl xs:min-w-[23rem] w-full md:w-1/2"
             key={item.imgPath}
           >
             <img src={item.imgPath} alt={item.title} className="h-10" />

@@ -1,107 +1,110 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { api, useUserContext } from "../../utils";
+import { Heading } from "../../common";
 import Banner from "./components/Banner";
 import Steps from "./components/Steps";
-// import PackageContainer from "./components/PackageContainer";
-// import SpecialPackageContainer from "./components/SpecialPackageContainer";
-// import PackageMenu from "./components/PackageMenu";
+import GenreMenu from "./components/GenreMenu";
+import CratesContainer from "./components/CratesContainer";
+import PremiumCratesContainer from "./components/PremiumCratesContainer";
 import Testimonials from "./components/Testimonials";
-import "./packages.css";
 
 const Packages = () => {
   const { loggedUser } = useUserContext();
 
   const [loading, setLoading] = useState(true);
-  const [specialLoading, setSpecialLoading] = useState(true);
-  const [packages, setPackages] = useState([]);
-  const [filteredPackages, setFilteredPackages] = useState([]);
-  const [specialPackages, setSpecialPackages] = useState([]);
+  const [crates, setCrates] = useState([]);
+  const [filteredCrates, setFilteredCrates] = useState([]);
+  const [premiumLoading, setPremiumLoading] = useState(true);
+  const [premiumCrates, setPremiumCrates] = useState([]);
 
-  const getPackages = async () => {
+  const getCrates = async () => {
     try {
-      const { data } = await api.get("/allCrates");
-      console.log(data.dta);
-      // show only packages that have not expired
-      const temp = data.dta.filter(
-        (item) => +new Date(item.endDate) >= +new Date()
-      );
-      setPackages(temp);
+      const { data } = await api.get("/crates");
+      console.log(data.result);
+      // show only crates that have not expired
+      const temp = data.result.filter((item) => {
+        if (!item.endDate) return true;
+        if (+new Date(item.endDate) >= +new Date()) return true;
+      });
+      setCrates(temp);
     } catch (error) {
       console.log(error);
     }
     setLoading(false);
   };
-  const getSpecialPackages = async () => {
+  const getPremiumCrates = async () => {
     try {
-      const { data } = await api.get("/user/allSpecialPackages");
-      console.log(data.dta);
-      setSpecialPackages(data.dta);
+      const { data } = await api.get("/allpremiumCrates");
+      console.log(data.result);
+      setPremiumCrates(data.result);
     } catch (error) {
       console.log(error);
     }
-    setSpecialLoading(false);
+    setPremiumLoading(false);
   };
   useEffect(() => {
-    getPackages();
-    getSpecialPackages();
+    getCrates();
+    getPremiumCrates();
   }, []);
 
-  const sports = ["All", "NBA", "NHL", "NFL", "NCAAB", "Others"];
-  const [activeSportsIndex, setActiveSportsIndex] = useState(0);
+  const genre = useMemo(
+    () => ["All", "Action", "Comedy", "Drama", "Thriller", "Others"],
+    []
+  );
+  const [activeGenreIndex, setActiveGenreIndex] = useState(0);
 
   useEffect(() => {
     if (!loading) {
-      if (activeSportsIndex === 0) setFilteredPackages([...packages]);
+      if (activeGenreIndex === 0) setFilteredCrates([...crates]);
       else
-        setFilteredPackages(
-          packages.filter((item) => item.sports === sports[activeSportsIndex])
+        setFilteredCrates(
+          crates.filter((item) => item.genre === genre[activeGenreIndex])
         );
     }
-  }, [activeSportsIndex, loading]);
+  }, [activeGenreIndex, loading, crates, genre]);
 
   return (
     <div>
       <Banner />
       {loggedUser._id === "" && <Steps />}
-      {/* <div className="my-20">
+      <div className="my-20">
         <div>
-          <h2 className="font-medium text-center mb-2">
-            Get Started with <span className="text-yellow">Our Packages</span>
-          </h2>
-          <p className="text-center text-lightgrey2">
-            Embark on your winning adventure now! Explore our tailored packages
-            to kickstart your gaming journey with an unbeatable edge.
+          <Heading level={2} className="text-center mb-2">
+            Unwrap Entertainment with Our Curated{" "}
+            <span className="text-yellow">Crates</span>
+          </Heading>
+          <p className="text-center text-grey">
+            Dive into a world of cinematic adventures! Explore our themed movie
+            and TV show selections - the perfect way to start your next
+            binge-watching marathon.
           </p>
         </div>
         <div className="flex justify-center mt-12">
-          <PackageMenu
-            sports={sports}
-            activeSportsIndex={activeSportsIndex}
-            setActiveSportsIndex={setActiveSportsIndex}
+          <GenreMenu
+            genre={genre}
+            activeGenreIndex={activeGenreIndex}
+            setActiveGenreIndex={setActiveGenreIndex}
           />
         </div>
-        <PackageContainer
-          loading={loading}
-          filteredPackages={filteredPackages}
-        />
+        <CratesContainer loading={loading} filteredCrates={filteredCrates} />
       </div>
       <div className="my-20">
         <div>
-          <h2 className="font-medium text-center mb-2">
-            Get exclusive JordansPicks content using our{" "}
-            <span className="text-yellow">Premium Packages</span>
-          </h2>
-          <p className="text-center text-lightgrey2">
-            These packages are designed to give you the best of the best. Get
-            access to our premium picks and take your gaming experience to the
-            next level.
+          <Heading level={2} className="text-center mb-2">
+            Unlock Exclusive Content with Our{" "}
+            <span className="text-primary">Premium Crates</span>
+          </Heading>
+          <p className="text-center text-grey">
+            Level up your entertainment with exclusive content! Our Premium
+            Crates offer access to hidden gems and highly-anticipated titles,
+            taking your movie and TV nights to the next level.
           </p>
         </div>
-        <SpecialPackageContainer
-          loading={specialLoading}
-          specialPackages={specialPackages}
+        <PremiumCratesContainer
+          loading={premiumLoading}
+          premiumCrates={premiumCrates}
         />
-      </div> */}
+      </div>
       <Testimonials />
     </div>
   );

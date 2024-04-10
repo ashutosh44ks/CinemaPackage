@@ -55,7 +55,7 @@ const Banner = () => {
         <img
           src={`/slider${activeIndex}-mobile.jpg`}
           alt="banner-mobile"
-          className="cursor-pointer w-full rounded-lg"
+          className="cursor-pointer w-full rounded-2xl"
           // onClick={handleClick}
         />
       </div>
@@ -67,7 +67,7 @@ const Banner = () => {
       <img
         src={`/slider${activeIndex}.jpg`}
         alt="banner-desktop"
-        className="cursor-pointer w-full rounded-lg"
+        className="cursor-pointer w-full rounded-2xl"
         // onClick={handleClick}
       />
     </div>
