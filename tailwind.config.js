@@ -26,6 +26,19 @@ export default {
       fontFamily: {
         sans: ["Inter", ...defaultTheme.fontFamily.sans],
       },
+      keyframes: {
+        skeleton: {
+          "0%": {
+            background: "rgba(0,0,0,0.1)",
+          },
+          "100%": {
+            background: "rgba(0,0,0,0.25)",
+          },
+        },
+      },
+      animation: {
+        skeleton: "skeleton 2.5s infinite alternate",
+      },
     },
   },
   plugins: [],
