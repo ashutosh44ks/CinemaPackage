@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
+import { useMutation } from "@tanstack/react-query";
 import { Button, Input, InputPassword, Checkbox, Heading } from "../../common";
 import { api, myToast } from "../../utils";
 import SocialLoginBtnGroup from "./components/SocialLoginBtnGroup";
@@ -9,12 +10,15 @@ import { PiSealCheck } from "react-icons/pi";
 const RenderReferral = ({ refBy, setRefBy }) => {
   const [searchParams] = useSearchParams();
   useEffect(() => {
+    // if url has referral code, set it in state
     if (searchParams.get("referralCode")) {
       setRefBy(searchParams.get("referralCode"));
     }
   }, [searchParams, setRefBy]);
+  
   const [showReferral, setShowReferral] = useState(false);
 
+  // if url has referral code
   if (searchParams.get("referralCode")) {
     return (
       <p className="text-primary text-sm mb-4 flex gap-1 items-center">
@@ -22,6 +26,7 @@ const RenderReferral = ({ refBy, setRefBy }) => {
       </p>
     );
   }
+  // if user wants to enter referral code
   if (showReferral)
     return (
       <div className="mb-4 w-full">
@@ -34,6 +39,7 @@ const RenderReferral = ({ refBy, setRefBy }) => {
         />
       </div>
     );
+  // ask user if they have a referral code
   return (
     <p
       className="cursor-pointer text-primary text-sm mb-4"
@@ -55,25 +61,19 @@ const Register = () => {
   const [phone, setPhone] = useState("");
   const [refBy, setRefBy] = useState("");
   const [terms, setTerms] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const registerUser = async () => {
-    setLoading(true);
-    try {
-      const { data } = await api.post(`/signup`, {
+
+  const { isPending, mutate: mutateRegistration } = useMutation({
+    mutationFn: () =>
+      api.post(`/register`, {
         name,
         email,
-        mobile: phone,
+        mobile: +phone,
         password,
         ...(refBy && { refBy }),
-      });
-      console.log(data);
-      navigate(`/auth/verify-account?email=${email}`);
-    } catch (err) {
-      console.log(err);
-      myToast(err?.response?.data?.error, "failure");
-    }
-    setLoading(false);
-  };
+      }),
+    onSuccess: () => navigate(`/auth/verify-account?email=${email}`),
+    onError: (err) => myToast(err?.response?.data?.error, "failure"),
+  });
 
   return (
     <form
@@ -81,7 +81,7 @@ const Register = () => {
         e.preventDefault();
         if (password !== cPassword)
           return myToast("Passwords do not match", "failure");
-        else registerUser();
+        else mutateRegistration();
       }}
       className="max-w-[26rem]"
     >
@@ -101,6 +101,7 @@ const Register = () => {
           onChange={(e) => setName(e.target.value)}
           className="w-full min-w-[20rem]"
           required
+          disabled={isPending}
         />
       </div>
       <div className="mb-4 w-full">
@@ -111,6 +112,7 @@ const Register = () => {
           onChange={(e) => setEmail(e.target.value)}
           className="w-full min-w-[20rem]"
           required
+          disabled={isPending}
         />
       </div>
       <div className="mb-4 w-full">
@@ -125,6 +127,7 @@ const Register = () => {
           className="w-full min-w-[20rem]"
           maxLength={10}
           required
+          disabled={isPending}
         />
       </div>
       <div className="relative mb-4 w-full">
@@ -134,6 +137,7 @@ const Register = () => {
           onChange={(e) => setPassword(e.target.value)}
           className="w-full min-w-[20rem]"
           required
+          disabled={isPending}
         />
       </div>
       <div className="relative mb-4 w-full">
@@ -143,6 +147,7 @@ const Register = () => {
           onChange={(e) => setCPassword(e.target.value)}
           className="w-full min-w-[20rem]"
           required
+          disabled={isPending}
         />
       </div>
       <div className="mb-4 w-full">
@@ -179,9 +184,9 @@ const Register = () => {
           theme="primary"
           className="w-full font-semibold flex justify-center"
           type="submit"
-          disabled={loading}
+          disabled={isPending}
         >
-          {loading ? (
+          {isPending ? (
             <AiOutlineLoading3Quarters className="animate-spin text-2xl" />
           ) : (
             "Create Account"

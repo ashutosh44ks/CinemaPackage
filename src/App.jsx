@@ -2,6 +2,8 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { useHandleReturnUser } from "./utils";
 import PassContext from "./utils/PassContext";
+import "../node_modules/react-simple-toasts/dist/theme/failure.css";
+import "../node_modules/react-simple-toasts/dist/theme/success.css";
 
 // import ProtectedRoute from "./components/utils/ProtectedRoute";
 import Layout from "./layout";
@@ -32,6 +34,7 @@ import Home from "./pages/Home";
 // import Cart from "./pages/Cart";
 
 function App() {
+  // This will be done by React Query
   const { loading, loggedUser, setLoggedUser, getProfileShort } =
     useHandleReturnUser();
 
@@ -164,6 +167,7 @@ function App() {
       errorElement: <Error />,
     },
   ]);
+
   return (
     <PassContext.Provider
       value={{ loggedUser, setLoggedUser, getProfileShort }}

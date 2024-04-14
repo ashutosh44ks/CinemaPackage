@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useMutation } from "@tanstack/react-query";
 import { api, myToast } from "../../utils";
 import { Heading, Button, Input, InputPassword } from "../../common";
 import { AiOutlineLoading } from "react-icons/ai";
@@ -10,51 +11,49 @@ const ForgotPassword = () => {
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
   const [otp, setOtp] = useState("");
-  const resetPassword = async () => {
-    try {
-      const { data } = await api.post(`/resetPass`, {
+
+  const resetPassMutation = useMutation({
+    mutationFn: () =>
+      api.post(`/resetPassword`, {
         email,
         otp: +otp,
         password,
-      });
-      console.log(data);
+      }),
+    onSuccess: ({ data }) => {
       myToast(data.msg, "success");
       setTimeout(() => {
         navigate("/auth/login");
       }, 1000);
-    } catch (err) {
-      console.log(err);
+    },
+    onError: (err) => {
       myToast(err?.response?.data?.error, "failure");
-    }
-  };
+    },
+  });
 
-  const [loading, setLoading] = useState(false);
   const [showResend, setShowResend] = useState(false);
-  const initiateResetPass = async () => {
-    setLoading(true);
-    try {
-      const { data } = await api.post(`/resetPassOTP`, {
+  const generateResetPassOTPMutation = useMutation({
+    mutationFn: () =>
+      api.post(`/generateResetPassOTP`, {
         email,
-      });
-      console.log(data);
+      }),
+    onSuccess: ({ data }) => {
       myToast(data.msg, "success");
       setPage(1);
-    } catch (err) {
-      console.log(err);
-      myToast(err?.response?.data?.error || "Something went wrong", "failure");
+    },
+    onError: (err) => {
+      myToast(err?.response?.data?.error, "failure");
       setShowResend(true);
-    }
-    setLoading(false);
-  };
+    },
+  });
 
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState(0);
 
   if (page === 0)
     return (
       <form
         onSubmit={(e) => {
           e.preventDefault();
-          initiateResetPass();
+          generateResetPassOTPMutation.mutate();
         }}
         className="max-w-[26rem]"
       >
@@ -73,6 +72,7 @@ const ForgotPassword = () => {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             className="w-full min-w-[20rem]"
+            disabled={generateResetPassOTPMutation.isPending}
             required
           />
         </div>
@@ -81,9 +81,11 @@ const ForgotPassword = () => {
             theme="primary"
             className="w-full flex gap-2 justify-center items-center font-medium"
             type="submit"
-            disabled={loading}
+            disabled={generateResetPassOTPMutation.isPending}
           >
-            {loading && <AiOutlineLoading className="animate-spin" size={16} />}
+            {generateResetPassOTPMutation.isPending && (
+              <AiOutlineLoading className="animate-spin" size={16} />
+            )}
             Send OTP
           </Button>
         </div>
@@ -93,7 +95,7 @@ const ForgotPassword = () => {
             <span
               className="cursor-pointer text-primary"
               onClick={() => {
-                initiateResetPass();
+                generateResetPassOTPMutation.mutate();
               }}
             >
               Resend
@@ -107,7 +109,7 @@ const ForgotPassword = () => {
       <form
         onSubmit={(e) => {
           e.preventDefault();
-          resetPassword();
+          resetPassMutation.mutate();
         }}
         className="max-w-[26rem]"
       >
@@ -137,6 +139,7 @@ const ForgotPassword = () => {
             value={otp}
             onChange={(e) => setOtp(e.target.value)}
             className="w-full min-w-[20rem]"
+            disabled={resetPassMutation.isPending}
             required
           />
         </div>
@@ -146,11 +149,17 @@ const ForgotPassword = () => {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             className="w-full min-w-[20rem]"
+            disabled={resetPassMutation.isPending}
             required
           />
         </div>
         <div className="w-full mb-4">
-          <Button theme="primary" className="w-full" type="submit">
+          <Button
+            theme="primary"
+            className="w-full"
+            type="submit"
+            disabled={resetPassMutation.isPending}
+          >
             Change Password
           </Button>
         </div>

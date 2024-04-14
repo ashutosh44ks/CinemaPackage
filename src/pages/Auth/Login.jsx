@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
+import { useMutation } from "@tanstack/react-query";
 import { jwtDecode } from "jwt-decode";
 import { api, myToast, useUserContext } from "../../utils";
-import { Button, Checkbox, Heading, Input, InputPassword } from "../../common/";
+import { Button, Checkbox, Heading, Input, InputPassword } from "../../common";
 import SocialLoginBtnGroup from "./components/SocialLoginBtnGroup";
 
 const Login = () => {
@@ -12,23 +13,25 @@ const Login = () => {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [rememberMe, setRememberMe] = useState(false);
   useEffect(() => {
+    // if user has checked remember me, then set the email and password from localStorage
     const user = JSON.parse(localStorage.getItem("cinemaUser"));
     if (user) {
       setEmail(user.email);
       setPassword(user.password);
     }
   }, []);
-  const [rememberMe, setRememberMe] = useState(false);
-  const loginUser = async () => {
-    try {
-      const { data } = await api.post(`/login`, {
+
+  const loginMutation = useMutation({
+    mutationFn: () =>
+      api.post(`/login`, {
         email,
         password,
-      });
-      console.log(data);
-      localStorage.setItem("cinemaToken", data.result.token);
-      localStorage.setItem("cinemaRefreshToken", data.result.refreshToken);
+      }),
+    onSuccess: ({ data: { data } }) => {
+      localStorage.setItem("cinemaToken", data.token);
+      localStorage.setItem("cinemaRefreshToken", data.refreshToken);
       if (rememberMe)
         localStorage.setItem(
           "cinemaUser",
@@ -37,21 +40,21 @@ const Login = () => {
             password,
           })
         );
-      const decodedToken = jwtDecode(data.result.token);
+      const decodedToken = jwtDecode(data.token);
       setLoggedUser({ ...loggedUser, _id: decodedToken.id });
       if (searchParams.get("redirect")) navigate(searchParams.get("redirect"));
       else navigate("/");
-    } catch (err) {
-      console.log(err);
+    },
+    onError: (err) => {
       myToast(err?.response?.data?.error, "failure");
-    }
-  };
+    },
+  });
 
   return (
     <form
       onSubmit={(e) => {
         e.preventDefault();
-        loginUser();
+        loginMutation.mutate();
       }}
       className="max-w-[26rem]"
     >
@@ -94,7 +97,7 @@ const Login = () => {
           className="text-sm"
         />
         <span
-          className="cursor-pointer text-sm"
+          className="cursor-pointer text-sm hover:text-primary ease-linear duration-200"
           onClick={() => {
             navigate("/auth/forgot-password");
           }}

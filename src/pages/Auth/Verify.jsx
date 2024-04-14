@@ -1,68 +1,60 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import { api, myToast, useUserContext } from "../../utils";
+import { useMutation } from "@tanstack/react-query";
+import { api, myToast } from "../../utils";
 import { Button, Heading, Input } from "../../common";
 import { AiOutlineLoading } from "react-icons/ai";
 
 const VerifyAccount = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
-  const { loggedUser } = useUserContext();
 
   const [emailInput, setEmailInput] = useState("");
+  // set emailInput from url (passed from register page)
   useEffect(() => {
     setEmailInput(searchParams.get("email"));
   }, [searchParams]);
 
+  const [page, setPage] = useState(0);
   const [otp, setOtp] = useState("");
-  const verifyAccount = async () => {
-    try {
-      const { data } = await api.post(`/verifyAccount`, {
+
+  const verifyOTPMutation = useMutation({
+    mutationFn: () =>
+      api.post(`/verifyOTP`, {
         email: emailInput,
         otp: +otp,
-      });
-      console.log(data);
-      myToast(data.msg, "success");
-      if (loggedUser._id !== "") navigate("/");
-      else {
-        myToast("Please login to continue", "success");
-        if (searchParams.get("redirect"))
-          navigate("/auth/login?redirect=" + searchParams.get("redirect"));
-        else navigate("/auth/login");
-      }
-    } catch (err) {
-      console.log(err);
-      myToast(err?.response?.data?.error, "failure");
-    }
-  };
+      }),
+    onSuccess: () => {
+      myToast("Please login to continue", "success");
+      if (searchParams.get("redirect"))
+        navigate("/auth/login?redirect=" + searchParams.get("redirect"));
+      else navigate("/auth/login");
+    },
+    onError: (err) => myToast(err?.response?.data?.error, "failure"),
+  });
 
-  const [loading, setLoading] = useState(false);
   const [showResend, setShowResend] = useState(false);
-  const initiateVerify = async () => {
-    setLoading(true);
-    try {
-      const { data } = await api.post(`/generateOTP`, {
+  const generateOTPMutation = useMutation({
+    mutationFn: () =>
+      api.post(`/generateVerificationOTP`, {
         email: emailInput,
-      });
-      console.log(data);
+      }),
+    onSuccess: (data) => {
       myToast(data.msg, "success");
       setPage(1);
-    } catch (err) {
-      console.log(err);
+    },
+    onError: (err) => {
       myToast(err?.response?.data?.error, "failure");
       setShowResend(true);
-    }
-    setLoading(false);
-  };
-
-  const [page, setPage] = useState(0);
+    },
+  });
 
   if (page === 0)
     return (
       <form
         onSubmit={(e) => {
           e.preventDefault();
-          initiateVerify();
+          generateOTPMutation.mutate();
         }}
         className="max-w-[26rem]"
       >
@@ -83,6 +75,7 @@ const VerifyAccount = () => {
             onChange={(e) => setEmailInput(e.target.value)}
             className="w-full min-w-[20rem]"
             required
+            disabled={generateOTPMutation.isPending}
           />
         </div>
         <div className="w-full">
@@ -90,9 +83,11 @@ const VerifyAccount = () => {
             theme="primary"
             className="w-full flex gap-2 justify-center items-center font-medium"
             type="submit"
-            disabled={loading}
+            disabled={generateOTPMutation.isPending}
           >
-            {loading && <AiOutlineLoading className="animate-spin" size={16} />}
+            {generateOTPMutation.isPending && (
+              <AiOutlineLoading className="animate-spin" size={16} />
+            )}
             Send OTP
           </Button>
         </div>
@@ -102,7 +97,7 @@ const VerifyAccount = () => {
             <span
               className="cursor-pointer text-primary"
               onClick={() => {
-                initiateVerify();
+                generateOTPMutation.mutate();
               }}
             >
               Resend
@@ -116,7 +111,7 @@ const VerifyAccount = () => {
       <form
         onSubmit={(e) => {
           e.preventDefault();
-          verifyAccount();
+          verifyOTPMutation.mutate();
         }}
         className="max-w-[26rem]"
       >
@@ -146,10 +141,16 @@ const VerifyAccount = () => {
             onChange={(e) => setOtp(e.target.value)}
             className="w-full min-w-[20rem]"
             required
+            disabled={verifyOTPMutation.isPending}
           />
         </div>
         <div className="w-full mb-4">
-          <Button theme="primary" className="w-full" type="submit">
+          <Button
+            theme="primary"
+            className="w-full"
+            type="submit"
+            disabled={verifyOTPMutation.isPending}
+          >
             Submit
           </Button>
         </div>
