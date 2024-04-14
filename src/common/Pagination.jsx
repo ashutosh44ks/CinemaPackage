@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import {
   MdKeyboardDoubleArrowRight,
   MdKeyboardDoubleArrowLeft,
@@ -7,20 +7,21 @@ import {
 } from "react-icons/md";
 import "./pagination.css";
 
-const Pagination = ({ page, setPage, lastPage, size = "md" }) => {
-  const initialise = () => {
-    if (lastPage === 1) return [1];
-    else if (lastPage === 2) return [1, 2];
-    return [1, 2, 3];
-  };
+const Pagination = ({ page, setPage, totalPages, size = "md" }) => {
   const [pagesList, setPagesList] = useState([]);
+  const initialise = useCallback(() => {
+    if (totalPages === 1) return [1];
+    else if (totalPages === 2) return [1, 2];
+    return [1, 2, 3];
+  }, [totalPages]);
+  
   useEffect(() => {
     setPagesList(initialise());
-  }, [lastPage]);
+  }, [totalPages, initialise]);
   const handleChange = (value) => {
     setPage(value);
     if (value > 3) {
-      if (value === lastPage) setPagesList([value - 2, value - 1, value]);
+      if (value === totalPages) setPagesList([value - 2, value - 1, value]);
       else setPagesList([value - 1, value, value + 1]);
     } else {
       setPagesList(initialise());
@@ -28,10 +29,10 @@ const Pagination = ({ page, setPage, lastPage, size = "md" }) => {
   };
 
   if (
-    lastPage === null ||
-    lastPage === 1 ||
-    lastPage === 0 ||
-    lastPage === undefined
+    totalPages === null ||
+    totalPages === 1 ||
+    totalPages === 0 ||
+    totalPages === undefined
   )
     return "";
   return (
@@ -66,23 +67,23 @@ const Pagination = ({ page, setPage, lastPage, size = "md" }) => {
         ))}
       <button
         className={
-          page === lastPage ? "disabled pagination-btn" : "pagination-btn"
+          page === totalPages ? "disabled pagination-btn" : "pagination-btn"
         }
         onClick={() => {
-          if (page !== lastPage) handleChange(page + 1);
+          if (page !== totalPages) handleChange(page + 1);
         }}
-        disabled={page === lastPage}
+        disabled={page === totalPages}
       >
         <MdOutlineArrowForwardIos />
       </button>
       <button
         className={
-          page === lastPage ? "disabled pagination-btn" : "pagination-btn"
+          page === totalPages ? "disabled pagination-btn" : "pagination-btn"
         }
         onClick={() => {
-          if (page !== lastPage) handleChange(lastPage);
+          if (page !== totalPages) handleChange(totalPages);
         }}
-        disabled={page === lastPage}
+        disabled={page === totalPages}
       >
         <MdKeyboardDoubleArrowRight />
       </button>
@@ -91,7 +92,7 @@ const Pagination = ({ page, setPage, lastPage, size = "md" }) => {
 };
 Pagination.defaultProps = {
   size: "lg",
-  lastPage: 100,
+  totalPages: 0,
 };
 
 export default Pagination;
