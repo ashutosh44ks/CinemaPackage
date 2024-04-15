@@ -10,7 +10,6 @@ const PassContext = React.createContext({
     isAddress: false,
   },
   setLoggedUser: () => {},
-  getProfileShort: () => {},
 });
 
 export default PassContext;

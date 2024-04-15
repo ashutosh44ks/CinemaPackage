@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { jwtDecode } from "jwt-decode";
-import { api, updateToken } from "../index";
+import { updateToken } from "../index";
 
 const useHandleReturnUser = () => {
   const [loggedUser, setLoggedUser] = useState({
@@ -29,23 +29,7 @@ const useHandleReturnUser = () => {
     handleReturningUser();
   }, []);
 
-  const getProfileShort = async () => {
-    try {
-      const { data } = await api.get("/getProfileShort");
-      console.log(data);
-      setLoggedUser({
-        _id: data.dta._id,
-        wallet: data.dta.wallet,
-        name: data.dta.name,
-        defaultDiscount: data.dta.defaultDiscount,
-        cart: data.dta.cart || [],
-        isAddress: data.dta.isAddress,
-      });
-    } catch (err) {
-      console.log(err);
-    }
-  };
-  return { loading, getProfileShort, loggedUser, setLoggedUser };
+  return { loading, loggedUser, setLoggedUser };
 };
 
 export default useHandleReturnUser;

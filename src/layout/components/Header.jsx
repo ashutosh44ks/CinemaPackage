@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useLocation, Link } from "react-router-dom";
-import { useUserContext } from "../../utils";
+import { useQuery } from "@tanstack/react-query";
+import { useUserContext, api } from "../../utils";
 import Breadcrumbs from "../../common/Breadcrumbs";
 import Button from "../../common/Button";
 import {
@@ -35,7 +36,7 @@ const Menu = ({ routeList, activeRoute }) => {
 const Header = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const { loggedUser, setLoggedUser, getProfileShort } = useUserContext();
+  const { loggedUser, setLoggedUser } = useUserContext();
 
   const logout = () => {
     localStorage.removeItem("cinemaToken");
@@ -63,9 +64,11 @@ const Header = () => {
     if (showSidebar) setShowSidebar(false);
   }, [location]);
 
-  useEffect(() => {
-    if (loggedUser._id !== "") getProfileShort();
-  }, [loggedUser._id]);
+  useQuery({
+    queryKey: ["profile", "short"],
+    queryFn: () => api.get("/profile/short"),
+    enabled: loggedUser._id !== "",
+  });
 
   return (
     <>

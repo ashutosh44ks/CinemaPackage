@@ -35,7 +35,7 @@ import Home from "./pages/Home";
 
 function App() {
   // This will be done by React Query
-  const { loading, loggedUser, setLoggedUser, getProfileShort } =
+  const { loading, loggedUser, setLoggedUser } =
     useHandleReturnUser();
 
   if (loading) return null;
@@ -170,7 +170,7 @@ function App() {
 
   return (
     <PassContext.Provider
-      value={{ loggedUser, setLoggedUser, getProfileShort }}
+      value={{ loggedUser, setLoggedUser }}
     >
       <RouterProvider router={BrowserRouter} />
     </PassContext.Provider>
