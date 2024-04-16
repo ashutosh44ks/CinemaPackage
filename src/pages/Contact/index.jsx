@@ -1,12 +1,12 @@
 import { useState, useEffect } from "react";
-import { useUserContext } from "../../utils";
+import { useUserQuery } from "../../utils";
 import { api, myToast } from "../../utils/";
 import { Button, Heading } from "../../common";
 import { RiTelegramFill } from "react-icons/ri";
 import { Input, TextArea, Checkbox } from "../../common";
 
 const Contact = () => {
-  const { loggedUser } = useUserContext();
+  const { loggedUser } = useUserQuery();
 
   const [fName, setFName] = useState("");
   const [lName, setLName] = useState("");

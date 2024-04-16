@@ -1,11 +1,11 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useCountdown, useUserContext, api, myToast } from "../../../utils";
+import { useCountdown, useUserQuery, api, myToast } from "../../../utils";
 import { Button } from "../../../common";
 
 const CrateBox = ({ item }) => {
   const navigate = useNavigate();
-  const { loggedUser, getProfileShort } = useUserContext();
+  const { loggedUser, refetchUserQuery} = useUserQuery();
 
   const { diffTimeData } = useCountdown(item.endDate);
 
@@ -15,7 +15,7 @@ const CrateBox = ({ item }) => {
     try {
       const { data } = await api.post("/user/addItemToCart", { packageId });
       console.log(data);
-      getProfileShort();
+      refetchUserQuery();
       myToast(data.msg, "success");
       setCartText("Added in Cart");
     } catch (err) {

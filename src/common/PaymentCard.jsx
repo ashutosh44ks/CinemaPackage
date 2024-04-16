@@ -1,11 +1,11 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { useUserContext } from "../utils";
+import { useUserQuery } from "../utils";
 import Button from "./Button";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 
 const PaymentCard = ({ isLoading, submitFn }) => {
-  const { loggedUser } = useUserContext();
+  const { loggedUser } = useUserQuery();
 
   const handleCardNumberChange = (event) => {
     // Get the user's input

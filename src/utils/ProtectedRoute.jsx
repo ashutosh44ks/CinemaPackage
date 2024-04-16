@@ -1,14 +1,14 @@
-import { useEffect, useContext, useState } from "react";
+import { useEffect, useState } from "react";
 import { Outlet, useNavigate, useLocation } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
 import updateToken from "./updateToken";
-import PassContext from "./PassContext";
+import useUserQuery from "./hooks/useUserQuery";
 
 const ProtectedRoute = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const { loggedUser, setLoggedUser } = useContext(PassContext);
   const [loading, setLoading] = useState(true);
+  const { loggedUser } = useUserQuery();
   useEffect(() => {
     if (loggedUser._id === "") {
       // if User is not logged in
@@ -25,7 +25,8 @@ const ProtectedRoute = () => {
         } else {
           // if token is not expired, set loggedUser to userId or "user"
           console.log(decodedToken.id);
-          setLoggedUser({ ...loggedUser, _id: decodedToken.id });
+          // console.log("some serious shit happened")
+          // setLoggedUser({ ...loggedUser, _id: decodedToken.id });
         }
         setLoading(false);
       } else {
@@ -37,7 +38,7 @@ const ProtectedRoute = () => {
       // if User is logged in, set loading to false and later direct to the requested page
       setLoading(false);
     }
-  }, [navigate, loggedUser]);
+  }, [navigate, loggedUser, location.pathname, location.search]);
 
   if (!loading) return <Outlet />;
 };

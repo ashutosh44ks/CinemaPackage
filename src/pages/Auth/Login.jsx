@@ -1,13 +1,11 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { useMutation } from "@tanstack/react-query";
-import { jwtDecode } from "jwt-decode";
-import { api, myToast, useUserContext } from "../../utils";
+import { api, myToast } from "../../utils";
 import { Button, Checkbox, Heading, Input, InputPassword } from "../../common";
 import SocialLoginBtnGroup from "./components/SocialLoginBtnGroup";
 
 const Login = () => {
-  const { loggedUser, setLoggedUser } = useUserContext();
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
 
@@ -40,8 +38,9 @@ const Login = () => {
             password,
           })
         );
-      const decodedToken = jwtDecode(data.token);
-      setLoggedUser({ ...loggedUser, _id: decodedToken.id });
+      // console.log("some serious shit happened")
+      // const decodedToken = jwtDecode(data.token);
+      // setLoggedUser({ ...loggedUser, _id: decodedToken.id });
       if (searchParams.get("redirect")) navigate(searchParams.get("redirect"));
       else navigate("/");
     },

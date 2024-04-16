@@ -1,11 +1,8 @@
-// import { useState, useEffect } from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import { useHandleReturnUser } from "./utils";
-import PassContext from "./utils/PassContext";
+// import { ProtectedRoute } from "./utils";
 import "../node_modules/react-simple-toasts/dist/theme/failure.css";
 import "../node_modules/react-simple-toasts/dist/theme/success.css";
 
-// import ProtectedRoute from "./components/utils/ProtectedRoute";
 import Layout from "./layout";
 import Error from "./pages/Error";
 
@@ -34,12 +31,6 @@ import Home from "./pages/Home";
 // import Cart from "./pages/Cart";
 
 function App() {
-  // This will be done by React Query
-  const { loading, loggedUser, setLoggedUser } =
-    useHandleReturnUser();
-
-  if (loading) return null;
-
   const BrowserRouter = createBrowserRouter([
     {
       path: "/",
@@ -133,20 +124,20 @@ function App() {
         //       },
         //     ],
         //   },
-        //   {
-        //     path: "/",
-        //     element: <ProtectedRoute />,
-        //     children: [
-        //       {
-        //         path: "/cart",
-        //         element: <Cart />,
-        //       },
-        //       {
-        //         path: "/store",
-        //         element: <Store />,
-        //       },
-        //     ],
-        //   },
+        // {
+        //   path: "/",
+        //   element: <ProtectedRoute />,
+        //   children: [
+        //     {
+        //       path: "/cart",
+        //       element: <Cart />,
+        //     },
+        //     {
+        //       path: "/store",
+        //       element: <Store />,
+        //     },
+        //   ],
+        // },
         {
           path: "/faq",
           element: <Faq />,
@@ -168,13 +159,7 @@ function App() {
     },
   ]);
 
-  return (
-    <PassContext.Provider
-      value={{ loggedUser, setLoggedUser }}
-    >
-      <RouterProvider router={BrowserRouter} />
-    </PassContext.Provider>
-  );
+  return <RouterProvider router={BrowserRouter} />;
 }
 
 export default App;

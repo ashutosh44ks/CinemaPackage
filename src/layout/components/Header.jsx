@@ -1,9 +1,8 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useLocation, Link } from "react-router-dom";
-import { useQuery } from "@tanstack/react-query";
-import { useUserContext, api } from "../../utils";
-import Breadcrumbs from "../../common/Breadcrumbs";
-import Button from "../../common/Button";
+import { useQueryClient } from "@tanstack/react-query";
+import useUserQuery from "../../utils/hooks/useUserQuery";
+import { Breadcrumbs, Button } from "../../common";
 import {
   publicHeaderRoutes,
   protectedHeaderRoutes,
@@ -36,19 +35,13 @@ const Menu = ({ routeList, activeRoute }) => {
 const Header = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const { loggedUser, setLoggedUser } = useUserContext();
+  const queryClient = useQueryClient();
+  const { loggedUser } = useUserQuery();
 
   const logout = () => {
     localStorage.removeItem("cinemaToken");
     localStorage.removeItem("cinemaRefreshToken");
-    setLoggedUser({
-      _id: "",
-      name: "",
-      wallet: 0,
-      defaultDiscount: 0,
-      cart: [],
-      isAddress: false,
-    });
+    queryClient.removeQueries(["profile", "short"]);
     navigate("/auth/login");
   };
 
@@ -63,12 +56,6 @@ const Header = () => {
     setActiveRoute(location.pathname);
     if (showSidebar) setShowSidebar(false);
   }, [location]);
-
-  useQuery({
-    queryKey: ["profile", "short"],
-    queryFn: () => api.get("/profile/short"),
-    enabled: loggedUser._id !== "",
-  });
 
   return (
     <>

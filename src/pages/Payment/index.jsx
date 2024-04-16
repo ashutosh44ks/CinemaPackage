@@ -1,17 +1,16 @@
 import { useState } from "react";
 import { useLocation } from "react-router-dom";
-import { useUserContext } from "../../utils";
+import { useUserQuery } from "../../utils";
 import PaymentUI from "./components/PaymentUI";
 
 const Payment = () => {
   const location = useLocation();
-  const { getProfileShort } = useUserContext();
-
+  const { refetchUserQuery} = useUserQuery();
   const searchParams = new URLSearchParams(location.search);
   const [status, setStatus] = useState("");
   const validatePayment = () => {
     setTimeout(() => setStatus(searchParams.get("status")), 2500);
-    getProfileShort();
+    refetchUserQuery();
   };
 
   return (

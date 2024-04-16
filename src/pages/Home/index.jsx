@@ -1,5 +1,5 @@
 import { useState, useEffect, useMemo } from "react";
-import { api, useUserContext } from "../../utils";
+import { api, useUserQuery } from "../../utils";
 import { Heading } from "../../common";
 import Banner from "./components/Banner";
 import Steps from "./components/Steps";
@@ -9,7 +9,7 @@ import PremiumCratesContainer from "./components/PremiumCratesContainer";
 import Testimonials from "./components/Testimonials";
 
 const Packages = () => {
-  const { loggedUser } = useUserContext();
+  const { loggedUser } = useUserQuery();
 
   const [loading, setLoading] = useState(true);
   const [crates, setCrates] = useState([]);

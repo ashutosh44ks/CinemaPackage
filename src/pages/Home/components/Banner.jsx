@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 // import { useNavigate } from "react-router-dom";
-import { useWindowWidth, useUserContext } from "../../../utils";
+import { useWindowWidth, useUserQuery } from "../../../utils";
 // import { TbCircleFilled } from "react-icons/tb";
 
 // const BtnGrp = ({ activeIndex }) => {
@@ -19,7 +19,7 @@ import { useWindowWidth, useUserContext } from "../../../utils";
 const Banner = () => {
   // const navigate = useNavigate();
   const width = useWindowWidth();
-  const { loggedUser } = useUserContext();
+  const { loggedUser } = useUserQuery();
 
   const [activeIndex, setActiveIndex] = useState(0);
   // const [hover, setHover] = useState(false);
