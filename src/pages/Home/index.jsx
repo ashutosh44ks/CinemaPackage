@@ -1,51 +1,16 @@
-import { useState, useEffect, useMemo } from "react";
+import { useState, useMemo } from "react";
 import { api, useUserQuery } from "../../utils";
+import { useQuery } from "@tanstack/react-query";
 import { Heading } from "../../common";
 import Banner from "./components/Banner";
 import Steps from "./components/Steps";
 import GenreMenu from "./components/GenreMenu";
-import CratesContainer from "./components/CratesContainer";
 import PremiumCratesContainer from "./components/PremiumCratesContainer";
+import CratesContainer from "./components/CratesContainer";
 import Testimonials from "./components/Testimonials";
 
 const Packages = () => {
   const { loggedUser } = useUserQuery();
-
-  const [loading, setLoading] = useState(true);
-  const [crates, setCrates] = useState([]);
-  const [filteredCrates, setFilteredCrates] = useState([]);
-  const [premiumLoading, setPremiumLoading] = useState(true);
-  const [premiumCrates, setPremiumCrates] = useState([]);
-
-  const getCrates = async () => {
-    try {
-      const { data } = await api.get("/crates");
-      console.log(data.result);
-      // show only crates that have not expired
-      const temp = data.result.filter((item) => {
-        if (!item.endDate) return true;
-        if (+new Date(item.endDate) >= +new Date()) return true;
-      });
-      setCrates(temp);
-    } catch (error) {
-      console.log(error);
-    }
-    setLoading(false);
-  };
-  const getPremiumCrates = async () => {
-    try {
-      const { data } = await api.get("/allpremiumCrates");
-      console.log(data.result);
-      setPremiumCrates(data.result);
-    } catch (error) {
-      console.log(error);
-    }
-    setPremiumLoading(false);
-  };
-  useEffect(() => {
-    getCrates();
-    getPremiumCrates();
-  }, []);
 
   const genre = useMemo(
     () => ["All", "Action", "Comedy", "Drama", "Thriller", "Others"],
@@ -53,15 +18,39 @@ const Packages = () => {
   );
   const [activeGenreIndex, setActiveGenreIndex] = useState(0);
 
-  useEffect(() => {
-    if (!loading) {
-      if (activeGenreIndex === 0) setFilteredCrates([...crates]);
-      else
-        setFilteredCrates(
-          crates.filter((item) => item.genre === genre[activeGenreIndex])
-        );
-    }
-  }, [activeGenreIndex, loading, crates, genre]);
+  const getCrates = async () => {
+    let activeGenre = genre[activeGenreIndex].toLowerCase();
+    if (activeGenre === "all") activeGenre = "";
+    const {
+      data: { data },
+    } = await api.get(`/crates/standard?genre=${activeGenre}`);
+    return data;
+  };
+  const getLimitedCrates = async () => {
+    const {
+      data: { data },
+    } = await api.get("/crates/limited");
+    return data;
+  };
+  const getPremiumCrates = async () => {
+    const {
+      data: { data },
+    } = await api.get("/crates/premium");
+    return data;
+  };
+
+  const standardCratesQuery = useQuery({
+    queryKey: ["crates", "standard", genre[activeGenreIndex]],
+    queryFn: getCrates,
+  });
+  const limitedCratesQuery = useQuery({
+    queryKey: ["crates", "limited"],
+    queryFn: getLimitedCrates,
+  });
+  const premiumCratesQuery = useQuery({
+    queryKey: ["crates", "premium"],
+    queryFn: getPremiumCrates,
+  });
 
   return (
     <div>
@@ -86,7 +75,28 @@ const Packages = () => {
             setActiveGenreIndex={setActiveGenreIndex}
           />
         </div>
-        <CratesContainer loading={loading} filteredCrates={filteredCrates} />
+        <CratesContainer
+          loading={standardCratesQuery.isLoading}
+          crates={standardCratesQuery?.data?.result || []}
+          type="standard"
+        />
+      </div>
+      <div className="my-20">
+        <div>
+          <Heading level={2} className="text-center text-primary mb-2">
+            Limited Crates
+          </Heading>
+          <p className="text-center text-grey">
+            Get your hands on our Limited Crates! These special collections are
+            available for a limited time only, so don&apos;t miss out on the
+            chance to discover hidden gems and cult classics.
+          </p>
+        </div>
+        <CratesContainer
+          loading={limitedCratesQuery.isLoading}
+          crates={limitedCratesQuery?.data?.result || []}
+          type="limited"
+        />
       </div>
       <div className="my-20">
         <div>
@@ -101,8 +111,8 @@ const Packages = () => {
           </p>
         </div>
         <PremiumCratesContainer
-          loading={premiumLoading}
-          premiumCrates={premiumCrates}
+          loading={premiumCratesQuery.isLoading}
+          premiumCrates={premiumCratesQuery?.data?.result || []}
         />
       </div>
       <Testimonials />

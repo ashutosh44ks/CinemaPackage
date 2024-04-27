@@ -1,7 +1,7 @@
 import CrateBox from "./CrateBox";
 import { RiLoader4Line } from "react-icons/ri";
 
-const CratesContainer = ({ loading, filteredCrates }) => {
+const CratesContainer = ({ loading, crates, type }) => {
   return (
     <div className="flex flex-wrap gap-x-8 gap-y-16 justify-center mt-16">
       {loading ? (
@@ -13,8 +13,10 @@ const CratesContainer = ({ loading, filteredCrates }) => {
             <RiLoader4Line className="text-4xl animate-spin text-grey" />
           </div>
         ))
-      ) : filteredCrates.length > 0 ? (
-        filteredCrates.map((item) => <CrateBox item={item} key={item._id} />)
+      ) : crates.length > 0 ? (
+        crates.map((item) => (
+          <CrateBox item={item} key={item._id} type={type} />
+        ))
       ) : (
         <div className="text-grey">
           No content available for this genre yet. Check back soon!
