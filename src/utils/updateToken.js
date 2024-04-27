@@ -5,7 +5,7 @@ const updateToken = async () => {
   const refreshToken = localStorage.getItem("cinemaRefreshToken");
   try {
     const { data } = await axios.post(
-      `${import.meta.env.VITE_APP_BASE_API_URL}user/refreshToken`,
+      `${import.meta.env.VITE_APP_BASE_API_URL}/refreshToken`,
       {
         refreshToken,
       }

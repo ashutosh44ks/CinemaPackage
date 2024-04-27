@@ -28,8 +28,8 @@ const Login = () => {
         password,
       }),
     onSuccess: ({ data: { data } }) => {
-      localStorage.setItem("cinemaToken", data.token);
-      localStorage.setItem("cinemaRefreshToken", data.refreshToken);
+      localStorage.setItem("cinemaToken", data.result.token);
+      localStorage.setItem("cinemaRefreshToken", data.result.refreshToken);
       if (rememberMe)
         localStorage.setItem(
           "cinemaUser",

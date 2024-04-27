@@ -27,7 +27,7 @@ function useUserQuery() {
     };
   }
   return {
-    loggedUser: data.data,
+    loggedUser: data.data.result,
     refetchUserQuery: refetch,
   };
 }
